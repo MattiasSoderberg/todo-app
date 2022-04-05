@@ -1,9 +1,15 @@
 const { createTodo, getOneTodo, getAllUncompletedTodos, getAllCompletedTodos } = require("../models/Todo")
+const { getTags } = require("../models/Tag")
 
 
 const createNewTodo = async (req, res) => {
     const { title, abstract } = req.body
     const todo = await createTodo({ title, abstract, author: req.user.userId})
+    const tags = await getTags(req.body.tags)
+    if (tags) {
+        tags.forEach(tag => todo.tags.addToSet(tag._id))
+        await todo.save()
+    }
 
     if (todo) {
         res.json(todo)

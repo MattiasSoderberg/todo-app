@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const { createUser, getUser, login } = require("../models/User")
+const { createUser, getUserByUsername, login } = require("../models/User")
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -7,7 +7,7 @@ const createNewUser = async (req, res) => {
     const { username, password } = req.body
 
     if (username && password) {
-        if (await getUser(username.toLowerCase())) {
+        if (await getUserByUsername(username.toLowerCase())) {
             res.status(400).json({ message: "Username already exists" })
         } else {
             const user = await createUser({ username, password })
@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
 }
 
 const getLoggedInUser = async (req, res) => {
-    const user = await getUser(req.user.username)
+    const user = await getUserByUsername(req.user.username)
     if (user) {
         res.json(user)
     } else {

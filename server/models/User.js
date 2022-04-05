@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs")
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true, select: false }
+    password: { type: String, required: true, select: false },
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }]
 })
 
 userSchema.pre("save", async function (next) {
@@ -29,8 +30,13 @@ const login = async (username, password) => {
     return null
 }
 
-const getUser = async (username) => {
-    return await User.findOne({ username })
+const getUserByUsername = async (username) => {
+    return await User.findOne({ username }).populate("tags")
 }
 
-module.exports = { createUser, login, getUser }
+const updateUser = async (username, query) => {
+    console.log(username, query)
+    return await User.updateOne({ username }, query)
+}
+
+module.exports = { createUser, login, getUserByUsername, updateUser }

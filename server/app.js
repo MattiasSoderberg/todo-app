@@ -5,6 +5,7 @@ require("dotenv").config()
 
 const userRouter = require("./routes/user")
 const todoRouter = require("./routes/todo")
+const tagRouter = require("./routes/tag")
 
 const { verifyToken } = require("./middlewares/auth")
 
@@ -21,6 +22,7 @@ mongoose.connect(MONGODB_URI)
 
         app.use("/api/users", userRouter)
         app.use("/api/todos", todoRouter)
+        app.use("/api/tags", tagRouter)
 
         app.listen(PORT, () => {
             console.log(`Listening on port ${PORT}`)
