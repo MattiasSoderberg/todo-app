@@ -22,7 +22,7 @@ const listTodos = async (req, res) => {
     const todos = await getAllUncompletedTodos(req.user.userId)
 
     if (todos) {
-        res.json(todos)
+        res.json({todos})
     } else {
         res.sendStatus(400)
     }
@@ -32,7 +32,7 @@ const listCompletedTodos = async (req, res) => {
     const todos = await getAllCompletedTodos(req.user.userId)
 
     if (todos) {
-        res.json(todos)
+        res.json({todos})
     } else {
         res.sendStatus(400)
     }
