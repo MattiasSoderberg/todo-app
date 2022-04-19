@@ -6,6 +6,6 @@ const router = express.Router()
 router.post("/create", createNewTodo)
 router.get("/", listTodos)
 router.get("/completed", listCompletedTodos)
-router.get("/:id/complete", toggleIsCompleted)
+router.post("/:id/complete", toggleIsCompleted)
 
 module.exports = router
