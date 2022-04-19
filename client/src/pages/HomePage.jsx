@@ -1,6 +1,7 @@
 import { Flex, Heading, Stack, Text } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import TodoCard from '../components/TodoCard'
+import TodoForm from '../components/TodoForm'
 
 export default function HomePage() {
     const [todos, setTodos] = useState([])
@@ -24,17 +25,8 @@ export default function HomePage() {
                 setReload(false)
                 setTodos(data.todos)
             })
-    }, [reload])
 
-    useEffect(() => {
-        const url = `${process.env.REACT_APP_API_URL}/todos/completed`
-        const token = localStorage.getItem("todo-app")
-        const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-
-        fetch(url, {
+        fetch(`${url}/completed`, {
             method: "GET",
             headers: headers
         })
@@ -44,23 +36,24 @@ export default function HomePage() {
                 setCompletedTodos(data.todos)
             })
     }, [reload])
+
     return (
-        <Flex w="80%" h="90vh" align="center" direction="column">
-            <Heading as="h1" size="2xl" mb="2rem">Todo-app</Heading>
+        <Flex w="80%" h="90vh" align="center" direction="column" mb="2rem">
+            <TodoForm setReload={setReload} />
             <Flex w="100%" h="100%" justify="space-between">
                 <Stack w="49%" bg="gray.100" p="2rem" borderRadius={6} boxShadow="lg">
                     <Heading as="h2" size="xl" mb="1rem">Todos</Heading>
                     {todos.length ? todos.map(todo => {
                         return <TodoCard key={todo._id} todo={todo} setReload={setReload} />
                     })
-                : <Text>No todos</Text>}
+                        : <Text>No todos</Text>}
                 </Stack>
                 <Stack w="49%" bg="green.300" p="2rem" borderRadius={6} boxShadow="lg">
                     <Heading as="h2" size="xl" mb="1rem">Completed</Heading>
                     {completedTodos.length ? completedTodos.map(todo => {
                         return <TodoCard key={todo._id} todo={todo} setReload={setReload} />
                     })
-                : <Text>No todos</Text>}
+                        : <Text>No todos</Text>}
                 </Stack>
             </Flex>
         </Flex>
