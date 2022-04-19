@@ -21,7 +21,6 @@ export default function HomePage() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.todos)
                 setReload(false)
                 setTodos(data.todos)
             })
@@ -41,7 +40,6 @@ export default function HomePage() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.todos)
                 setReload(false)
                 setCompletedTodos(data.todos)
             })
