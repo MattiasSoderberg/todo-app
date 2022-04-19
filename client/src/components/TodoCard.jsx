@@ -1,7 +1,23 @@
-import { Box, Flex, Heading, Stack, Text, HStack } from '@chakra-ui/react'
+import { Button, Flex, Heading, Stack, Text, HStack } from '@chakra-ui/react'
 import React from 'react'
 
-export default function TodoCard({ todo }) {
+export default function TodoCard({ todo, setReload }) {
+    const handleOnClick = () => {
+        const url = `${process.env.REACT_APP_API_URL}/todos/${todo._id}/complete`
+        const token = localStorage.getItem("todo-app")
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+
+        fetch(url, {
+            method: "POST",
+            headers: headers,
+        })
+            .then(res => res.json())
+            .then(data => setReload(true))
+        
+    }
     return (
         <Flex
             w="90%"
@@ -22,11 +38,16 @@ export default function TodoCard({ todo }) {
                     <Heading as="h3" size="sm">Tags</Heading>
                     <HStack>
                         {todo.tags.map(tag => {
-                            return <Text>"{tag.tag}"</Text>
+                            return <Text key={tag._id}>"{tag.tag}"</Text>
                         })}
                     </HStack>
                 </Stack>
             }
+            <Button onClick={handleOnClick}>
+                {todo.isCompleted ? 
+                "Uncomplete"
+            : "Complete"}
+                </Button>
         </Flex>
     )
 }
