@@ -16,11 +16,11 @@ const createTodo = async (todoData) => {
 }
 
 const getAllUncompletedTodos = async (userId) => {
-    return await Todo.find({ author: userId, isCompleted: false }).populate("tags").sort({ createdAt: 1 })
+    return await Todo.find({ author: userId, isCompleted: false }).populate("tags").sort({ createdAt: -1 })
 }
 
 const getAllCompletedTodos = async (userId) => {
-    return await Todo.find({ author: userId, isCompleted: true}).populate("tags").sort({ createdAt: 1 })
+    return await Todo.find({ author: userId, isCompleted: true}).populate("tags").sort({ createdAt: -1 })
 }
 
 const getOneTodo = async (todoId) => {
