@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Heading, Input, Stack, Text } from "@chakra-ui/react"
+import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react"
 
 export default function UserCreatePage() {
     const [username, setUsername] = useState("")
@@ -25,7 +25,13 @@ export default function UserCreatePage() {
             .then(data => navigate("/login"))
     }
     return (
-        <Box>
+        <Box
+            border="1px"
+            borderColor="gray.500"
+            borderRadius="4"
+            p="2rem"
+            shadow="md"
+        >
             <Heading mb="5rem" as="h1" size="2xl">Create User</Heading>
 
             <form onSubmit={handleOnSubmit}>

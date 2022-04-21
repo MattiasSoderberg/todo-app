@@ -29,8 +29,14 @@ export default function LoginPage() {
     }
 
     return (
-        <Box>
-            <Heading mb="5rem" as="h1" size="2xl">LoginPage</Heading>
+        <Box
+            border="1px"
+            borderColor="gray.500"
+            borderRadius="4"
+            p="2rem"
+            shadow="md"
+        >
+            <Heading mb="5rem" as="h1" size="2xl">Login</Heading>
 
             <form onSubmit={handleOnSubmit}>
                 <Stack spacing="2rem" w="20rem" mb="2rem">
