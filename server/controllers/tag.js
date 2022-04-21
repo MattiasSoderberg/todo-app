@@ -9,7 +9,6 @@ const createTags = async (req, res) => {
             const tags = await insertTags(modifiedTags)
             if (tags) {
                 tags.forEach(tag => user.tags.addToSet(tag._id))
-                console.log(user.tags)
                 await user.save()
                 // await updateUser(user.username, `{ $addToSet: { tags: { $ne: ${req.body.tags} } } }`)
                 res.json({ tags })
@@ -20,6 +19,8 @@ const createTags = async (req, res) => {
         catch (err) {
             res.status(400).json(err)
         }
+    } else {
+        res.sendStatus(403)
     }
 }
 
