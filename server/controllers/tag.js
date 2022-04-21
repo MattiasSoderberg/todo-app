@@ -10,7 +10,6 @@ const createTags = async (req, res) => {
             if (tags) {
                 tags.forEach(tag => user.tags.addToSet(tag._id))
                 await user.save()
-                // await updateUser(user.username, `{ $addToSet: { tags: { $ne: ${req.body.tags} } } }`)
                 res.json({ tags })
             } else {
                 res.sendStatus(400)
