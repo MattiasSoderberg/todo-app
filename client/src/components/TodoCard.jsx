@@ -35,7 +35,7 @@ export default function TodoCard({ todo, setReload }) {
                         <HStack>
                             <Heading as="h3" size="md">{todo.title}</Heading>
                             <Text color="gray.500">{todo.createdAt.split("T")[0]}</Text>
-                            <Text color="gray.500">{todo.createdAt.split("T")[1].split("Z")[0].slice(0, 5)}</Text>
+                            <Text color="gray.500">{todo.createdAt.split("T")[1].slice(0, 5)}</Text>
                         </HStack>
                         <Text>{todo.abstract}</Text>
                     </Stack>
