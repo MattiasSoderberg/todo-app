@@ -13,4 +13,18 @@ const verifyToken = (req, res, next) => {
     next()
 }
 
-module.exports = { verifyToken }
+const checkEmptyFields = (req, res, next) => {
+    let fieldsValid = true
+    Object.values(req.body).forEach(value => {
+        if (!value) {
+            fieldsValid = false
+        }
+    })
+    if (fieldsValid) {
+        next()
+    } else {
+        res.status(400).json({ message: "All fields requiered" })
+    }
+}
+
+module.exports = { verifyToken, checkEmptyFields }
