@@ -23,7 +23,6 @@ const listTodos = async (req, res) => {
     let todos
     if (tag) {
         todos = await getUncompletedTodosByTag(req.user.userId, tag._id)
-        console.log(todos)
     } else {
         todos = await getAllUncompletedTodos(req.user.userId)
     }
@@ -37,11 +36,9 @@ const listTodos = async (req, res) => {
 
 const listCompletedTodos = async (req, res) => {
     const tag = await getTagByName(req.query.filter)
-    console.log(tag)
     let todos
     if (tag) {
         todos = await getCompletedTodosByTag(req.user.userId, tag._id)
-        console.log(todos)
     } else {
         todos = await getAllCompletedTodos(req.user.userId)
     }
