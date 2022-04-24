@@ -1,6 +1,6 @@
 import React from "react"
 import { Routes, Route } from "react-router-dom"
-import { Heading, Flex } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import LoginPage from "./pages/LoginPage";
 import UserCreatePage from "./pages/UserCreatePage";
 import HomePage from "./pages/HomePage";
