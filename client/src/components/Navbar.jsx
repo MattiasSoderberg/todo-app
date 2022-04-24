@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     Flex, Heading, IconButton, Menu,
     MenuButton,
@@ -11,8 +12,11 @@ import {
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
 
 export default function Navbar() {
+    const navigate = useNavigate()
+
     const handleLogout = () => {
-        console.log("logout")
+        localStorage.removeItem("todo-app")
+        navigate("/login")
     }
 
     return (
