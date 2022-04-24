@@ -19,12 +19,20 @@ const getAllUncompletedTodos = async (userId) => {
     return await Todo.find({ author: userId, isCompleted: false }).populate("tags").sort({ createdAt: -1 })
 }
 
+const getUncompletedTodosByTag = async (userId, filter) => {
+    return await Todo.find({ author: userId, isCompleted: false, tags: {  $in: filter} }).populate("tags").sort({ createdAt: -1 })
+}
+
 const getAllCompletedTodos = async (userId) => {
-    return await Todo.find({ author: userId, isCompleted: true}).populate("tags").sort({ createdAt: -1 })
+    return await Todo.find({ author: userId, isCompleted: true }).populate("tags").sort({ createdAt: -1 })
+}
+
+const getCompletedTodosByTag = async (userId, filter) => {
+    return await Todo.find({ author: userId, isCompleted: true, tags: {  $in: filter} }).populate("tags").sort({ createdAt: -1 })
 }
 
 const getOneTodo = async (todoId) => {
     return await Todo.findOne({ _id: todoId })
 }
 
-module.exports = { createTodo, getAllUncompletedTodos, getAllCompletedTodos, getOneTodo }
+module.exports = { createTodo, getAllUncompletedTodos, getCompletedTodosByTag, getAllCompletedTodos, getUncompletedTodosByTag, getOneTodo }
