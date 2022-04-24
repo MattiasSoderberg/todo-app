@@ -19,6 +19,10 @@ export default function Navbar() {
         navigate("/login")
     }
 
+    const handleClickOnLogin = () => {
+        navigate("/login")
+    }
+
     return (
         <Flex
             w="100%"
@@ -47,7 +51,7 @@ export default function Navbar() {
                         bg="pink.100"
                         size="lg" />
                     <MenuList>
-                        <MenuItem>Download</MenuItem>
+                        <MenuItem onClick={handleClickOnLogin}>Login</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </MenuList>
                 </Menu>
