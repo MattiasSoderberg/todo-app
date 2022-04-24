@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Select from "react-select"
-import { Box, Button, Input, HStack, Heading, Flex, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Input, Heading, Flex, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react'
 
 export default function TodoForm({ setReload }) {
     const [title, setTitle] = useState("")
