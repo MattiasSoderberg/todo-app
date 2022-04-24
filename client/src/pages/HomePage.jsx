@@ -1,4 +1,4 @@
-import { Button, filter, Flex, Heading, Select, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Select, Stack, Text } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import TodoCard from '../components/TodoCard'
 import TodoForm from '../components/TodoForm'
@@ -11,7 +11,6 @@ export default function HomePage() {
     const [filterValue, setFilterValue] = useState("")
 
     useEffect(() => {
-        // const url = `${process.env.REACT_APP_API_URL}/todos?filter=${filterValue}`
         const token = localStorage.getItem("todo-app")
         const headers = {
             "Content-Type": "application/json",
@@ -28,17 +27,17 @@ export default function HomePage() {
                 setTodos(data.todos)
                 addTagToFilterList(data.todos)
             })
-            fetch(`${process.env.REACT_APP_API_URL}/todos/completed?filter=${filterValue}`, {
-                method: "GET",
-                headers: headers
+        fetch(`${process.env.REACT_APP_API_URL}/todos/completed?filter=${filterValue}`, {
+            method: "GET",
+            headers: headers
+        })
+            .then(res => res.json())
+            .then(data => {
+                setReload(false)
+                setCompletedTodos(data.todos)
+                addTagToFilterList(data.todos)
             })
-                .then(res => res.json())
-                .then(data => {
-                    setReload(false)
-                    setCompletedTodos(data.todos)
-                    addTagToFilterList(data.todos)
-                })
-    }, [reload])
+    }, [reload, filterValue])
 
     const addTagToFilterList = (todos) => {
         const arr = []
@@ -52,33 +51,19 @@ export default function HomePage() {
         setFilterList(filterList => [...filterList, ...arr])
     }
 
-    const handleOnFilter = (e) => {
-        setReload(true)
-        console.log(filterValue)
-    }
-
-    const clearFilter = () => {
-        setFilterValue("")
-        setReload(true)
-    }
-
     return (
         <Flex w="80%" h="90vh" align="center" direction="column" mb="2rem">
             <TodoForm setReload={setReload} />
-            <Flex gap="2rem">
-                <Text>Filter on Tag:</Text>
-                <form>
-                    <Select onChange={e => {
-                        setFilterValue(e.target.value)
-                        }}>
-                            <option value="">--</option>
-                        {filterList.length && filterList.map(tag => {
-                            return <option value={tag}>{tag}</option>
-                        })}
-                    </Select>
-                </form>
-                    <Button onClick={handleOnFilter}>Filter</Button>
-                    <Button onClick={clearFilter}>Clear Filter</Button>
+            <Flex gap="2rem" mb="1rem" w="20%">
+                <Text w="40%">Filter on Tag:</Text>
+                <Select w="60%" variant="flushed" onChange={e => {
+                    setFilterValue(e.target.value)
+                }}>
+                    <option value="">--</option>
+                    {filterList.length && filterList.map(tag => {
+                        return <option key={tag._id} value={tag}>{tag}</option>
+                    })}
+                </Select>
             </Flex>
             <Flex w="100%" h="100%" justify="space-between">
                 <Stack w="49%" bg="gray.100" p="2rem" borderRadius={6} boxShadow="lg">
