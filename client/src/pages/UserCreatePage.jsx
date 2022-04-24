@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Heading, Input, Stack } from "@chakra-ui/react"
+import { Box, Button, Heading, Input, Stack, Text } from "@chakra-ui/react"
 
 export default function UserCreatePage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
     const navigate = useNavigate()
 
     const handleOnSubmit = (e) => {
@@ -22,7 +23,13 @@ export default function UserCreatePage() {
             body: JSON.stringify(payload)
         })
             .then(res => res.json())
-            .then(data => navigate("/login"))
+            .then(data => {
+                if (data.message) {
+                    setErrorMessage(data.message)
+                } else {
+                    navigate("/login")
+                }
+            })
     }
     return (
         <Box
@@ -38,6 +45,7 @@ export default function UserCreatePage() {
                 <Stack spacing="2rem" w="20rem">
                     <Input variant="flushed" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
                     <Input variant="flushed" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                    {errorMessage && <Text color="red.300">{errorMessage}</Text>}
                     <Button type="submit">Submit</Button>
                 </Stack>
             </form>
