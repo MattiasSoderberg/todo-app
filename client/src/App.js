@@ -11,6 +11,7 @@ function App() {
     <Flex w="100vw" h="100vh" direction="column" align="center">
       <Navbar />
       <Routes>
+        <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-user" element={<UserCreatePage />} />
         <Route path="/home" element={<HomePage />} />
